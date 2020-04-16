@@ -12,3 +12,14 @@ body {
   
   font-family: 'Press Start 2P', cursive; 
 }
+
+footer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('../github.svg');
+
+  height: 50px;
+  width: 50px;
+  border: 1px solid red;
+}
