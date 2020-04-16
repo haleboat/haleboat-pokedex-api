@@ -1,14 +1,18 @@
-// - /pokemon/${name}/          - first data set has types/sprites
+// - /pokemon/${number}/        - first data set has types/sprites
 // - /pokemon-species/${number} - second data set has description/evolution_chain and evolves_from_species
 // - /evolution-chain/${number} - evo data set has evolves_to
+
+/**
+ * This build function is attached to an onload and makes the call to build the list.
+ */
 function build() {
   const url = "https://pokeapi.co/api/v2/pokedex/1"
   const pokedexList = document.createElement("ul")
   initialLoading()
   createPokedexHeader()
   createSearchbar()
-  getPokedexList(url).then(data => {
-    list = data.pokemon_entries
+  getPokedexList(url).then(listData => {
+    list = listData.pokemon_entries
     createListHeader(pokedexList)
     removeApiLoading()
     list.forEach(index => {
@@ -17,6 +21,13 @@ function build() {
   })
 }
 
+/**
+ * This is the initial call to the pokemon API to get a pokemon's entry number and name.
+ * returns an array of objects
+ * 
+ * @param {String} url stored in build() and passed here
+ * @returns an array of objects
+ */
 function getPokedexList(url) {
   const listData = fetch(url)
     .then(x => x.json())
@@ -29,6 +40,12 @@ function getPokedexList(url) {
   return listData
 }
 
+/**
+ * This is a call for a specific pokemon that fires when a user clicks on a view button.
+ * 
+ * @param {String} pokemonURL stored as a value on the button element.
+ * @returns an object of the chosen pokemon.
+ */
 function callPokemonEntryAPI(pokemonURL) {
   const pokemonData = fetch(pokemonURL)
     .then(x => x.json())
@@ -41,8 +58,15 @@ function callPokemonEntryAPI(pokemonURL) {
   return pokemonData
 }
 
+/**
+ * This is a call for the chosen pokemons species data, it has the description and evolution data.
+ *  
+ * @param {String} speciesURL this is picked from the pokemonEntryAPI and passed from the loadEntry function attached to the
+ *  view button inside the pokemonListHTML function
+ * @returns an object of the chosen pokemon.
+ */
 function callSpeciesAPI(speciesURL) {
-  const secondDataSet = fetch(speciesURL)
+  const speciesData = fetch(speciesURL)
     .then(x => x.json())
     .then(data => {
       return data
@@ -50,15 +74,20 @@ function callSpeciesAPI(speciesURL) {
     .catch(err => {
       showError()
     })
-  return secondDataSet
+  return speciesData
 }
 
+/**
+ * This is a call for the chosen pokemons evolution data, it has the evolves_to array if chosen pokemon CAN evolve, otherwise it's empty.
+ * 
+ * @param {String} evoURL this is picked from the speciesAPI and passed from the callSpeciesAPI inside the createPokemonCard function.
+ */
 function callEvolutionAPI(evoURL) {
   const evoDataSet = fetch(evoURL)
     .then(x => x.json())
     .then(data => {
-      const evo_data = data.chain
-      return evo_data
+      const evolutionData = data.chain
+      return evolutionData
     })
     .catch(err => {
       showError()
@@ -66,6 +95,10 @@ function callEvolutionAPI(evoURL) {
   return evoDataSet
 }
 
+
+/**
+ * This is called from build() to create the element header 'pokedex'
+ */
 function createPokedexHeader() {
   const container = document.querySelector('.container')
   const header = document.createElement('h1')
@@ -74,6 +107,9 @@ function createPokedexHeader() {
   container.appendChild(header)
 }
 
+/**
+ * This is called from build() to create the searchbar and adds the eventlistener 'searchJS' function
+ */
 function createSearchbar() {
   const container = document.querySelector('.container')
   const wrapper = document.createElement('div')
@@ -94,6 +130,11 @@ function createSearchbar() {
   textField.addEventListener('keyup', searchJS)
 }
 
+/**
+ * This is called from build() to create the pokedex list (Entry Number, Name, Action)
+ * 
+ * @param {ul} pokedexList this is ul element created on build()
+ */
 function createListHeader(pokedexList) {
   const listHeader = document.createElement('li')
   const listHeaderNum = document.createElement('p')
@@ -113,6 +154,12 @@ function createListHeader(pokedexList) {
   pokedexList.id = "pokemon-list"
 }
 
+/**
+ * This function is responsible creating the rows of the list and populating them with the data.
+ * 
+ * @param {Array} data this is passed from build() as an object from the array of objects acquired from the getPokedexList
+ * @param {ul} ul container for the list entries to hold li elements
+ */
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
@@ -131,6 +178,10 @@ function createPokemonListHTML(data, ul) {
   viewButton.textContent = `view`
   viewButton.id = `${pokedexName}`
 
+  /**
+   * Fires onclick when the user clicks a view button to render the pokemonCard
+   * 
+   */
   function loadEntry() {
     showLoading()
     showCard()
@@ -149,21 +200,27 @@ function createPokemonListHTML(data, ul) {
   container.appendChild(ul)
 }
 
-function createPokemonCard(firstDataSet) {
-  const speciesURL = firstDataSet.species.url
-  const id = firstDataSet.id
-  const name = firstDataSet.name
-  const sprite = firstDataSet.sprites.front_default
+/**
+ * This function creates the card using the pokemonData and calls speciesAPI and evolutionAPI to get the description and evolution chain.
+ * 
+ * @param {Object} pokemonData an object containing the speciesURL, id, name, and sprite.
+ */
+function createPokemonCard(pokemonData) {
+  const speciesURL = pokemonData.species.url
+  const id = pokemonData.id
+  const name = pokemonData.name
+  const sprite = pokemonData.sprites.front_default
 
   callSpeciesAPI(speciesURL)
-    .then(secondDataSet => {
-      getDescription(secondDataSet)
-      const evoURL = secondDataSet.evolution_chain.url
+    .then(speciesData => {
+      getDescription(speciesData)
+      const evoURL = speciesData.evolution_chain.url
       callEvolutionAPI(evoURL)
         .then(evoDataSet => {
           getEvolutions(evoDataSet)
         })
     })
+
 
   const entryID = document.querySelector('#poke-num')
   const nameID = document.querySelector('#poke-name')
@@ -174,16 +231,25 @@ function createPokemonCard(firstDataSet) {
   image.style = `background-image: url(${sprite})`
   entryID.textContent = zeroPadding(id)
   nameID.textContent = name
-  typeID.textContent = firstDataSet.types[0].type.name
-  typeID.className = `${firstDataSet.types[0].type.name}`
-  getSecondType(firstDataSet, typeIDtwo)
+  typeID.textContent = pokemonData.types[0].type.name
+  typeID.className = `${pokemonData.types[0].type.name}`
+
+  // if pokemon has more than 1 type this function does it's thing
+  getSecondType(pokemonData, typeIDtwo)
 }
 
-function getDescription(secondDataSet) {
+/**
+ * This function is responsible for parsing the array for the 'en'(english) version of the first description.
+ * 
+ * TODO I want to display all the english descriptions and add a button to the interface to cycle through them.
+ * 
+ * @param {Object} speciesData object containing the description information
+ */
+function getDescription(speciesData) {
   let description = `Error loading description.`
-  for (let i = 0; i < secondDataSet.flavor_text_entries.length; i++) {
-    if (secondDataSet.flavor_text_entries[i].language.name === 'en') {
-      description = secondDataSet.flavor_text_entries[i].flavor_text
+  for (let i = 0; i < speciesData.flavor_text_entries.length; i++) {
+    if (speciesData.flavor_text_entries[i].language.name === 'en') {
+      description = speciesData.flavor_text_entries[i].flavor_text
       break
     }
   }
@@ -191,16 +257,24 @@ function getDescription(secondDataSet) {
   descID.textContent = description
 }
 
-function getEvolutions(evo_data) {
+/**
+ * This function is responsible for determining if the pokemon has an evolution or not and sets the sprites if they do.
+ * 
+ * TODO needs work as it's very unreliant for displaying the chain in the right order. Has something to do with calling the speciesAPI to get the sprite.
+ * 
+ * @param {Object} evolutionData object containing the chosen pokemons evolutions. 
+ */
+function getEvolutions(evolutionData) {
   let evolutions_list = [];
+  evolutions_list = processChain(evolutionData.evolves_to, evolutions_list);
   evolutions_list.push({
-    entryNum: getEntryID(evo_data),
-    name: evo_data.species.name,
-    spritesURL: `https://pokeapi.co/api/v2/pokemon/${evo_data.species.name}/`
+    entryNum: getEntryID(evolutionData),
+    name: evolutionData.species.name,
+    spritesURL: `https://pokeapi.co/api/v2/pokemon/${evolutionData.species.name}/`
   })
-  evolutions_list = processChain(evo_data.evolves_to, evolutions_list);
 
   if (evolutions_list.length > 1) {
+    document.querySelector('.mid').style.display = 'block'
     evolutions_list.forEach(index => {
       callSpeciesAPI(index.spritesURL)
         .then(spritesTEST => {
@@ -220,17 +294,28 @@ function getEvolutions(evo_data) {
   }
 }
 
-function getSecondType(firstDataSet, typeIDtwo) {
+/**
+ * Checks if types array is bigger than 1 and sets the second type.
+ * 
+ * @param {Object} pokemonData array of objects holding another array for types
+ * @param {Element} typeIDtwo container for displaying a second type
+ */
+function getSecondType(pokemonData, typeIDtwo) {
   typeIDtwo.style.display = 'none'
 
-  if (firstDataSet.types.length > 1) {
-    typeIDtwo.textContent = firstDataSet.types[1].type.name
-    typeIDtwo.className = `${firstDataSet.types[1].type.name}`
+  if (pokemonData.types.length > 1) {
+    typeIDtwo.textContent = pokemonData.types[1].type.name
+    typeIDtwo.className = `${pokemonData.types[1].type.name}`
     typeIDtwo.style.display = ''
   }
 }
 
-//gets entry ID for element
+/**
+ * Function for getting the ID off of the li element for the processChain function.
+ * Workaround for avoiding the endpoint being the pokemons name and using it's entry number instead.
+ * 
+ * @param {Object} data object for the chosen pokemon
+ */
 function getEntryID(data) {
   if (data.species.name === document.querySelector(`${data.species.name}`)) {
     let id = document.querySelector(`${data.species.name}`).value
@@ -238,7 +323,10 @@ function getEntryID(data) {
   }
 }
 
-// Error Handling
+/**
+ * Error for if the API calls go wrong.
+ * Hides everything and display message "There was an error loading the data."
+ */
 function showError() {
   hideList()
   hideCard()
@@ -249,12 +337,17 @@ function showError() {
   document.querySelector('.container').appendChild(loading)
 }
 
+/**
+ * Hides list for error handling
+ */
 function hideList() {
   const list = document.querySelector('#pokemon-list')
   list.className = 'hide'
 }
 
-//Loading Functions
+/**
+ * Loading filter for the pokedex when a card is visible.
+ */
 function initialLoading() {
   const loading = document.createElement("div")
   loading.id = "api-loading"
@@ -263,6 +356,9 @@ function initialLoading() {
   document.querySelector('body').appendChild(loading)
 }
 
+/**
+ * Loading filter for when a card is loading.
+ */
 function showLoading() {
   const loading = document.createElement("div")
   loading.id = "js-loading"
@@ -271,17 +367,25 @@ function showLoading() {
   document.querySelector('.wrapper').appendChild(loading)
 }
 
+/**
+ * Removes the Loading filter on pokedex.
+ */
 function removeApiLoading() {
   const api_loading = document.querySelector("#api-loading")
   api_loading.remove()
 }
 
+/**
+ * Removes the Loading filter on the card.
+ */
 function removeLoading() {
   const loading = document.querySelector("#js-loading")
   loading.remove()
 }
 
-//Resets
+/**
+ * Fires when the 'close' button is clicked on the card.
+ */
 function hideCard() {
   removeApiLoading()
   resetCard()
@@ -289,12 +393,18 @@ function hideCard() {
   card.classList = 'toggle hide'
 }
 
+/**
+ * Fires when the 'view button is clicked on the list.
+ */
 function showCard() {
   initialLoading()
   const card = document.querySelector('.toggle')
   card.classList = 'toggle show'
 }
 
+/**
+ * Resets the card when the 'close' button is clicked.
+ */
 function resetCard() {
   document.querySelector('#poke-num').textContent = ''
   document.querySelector('#poke-name').textContent = ''
@@ -306,7 +416,11 @@ function resetCard() {
   document.querySelector('.mid').style.display = 'block'
 }
 
-//Padding tool
+/**
+ * Function for adding "#" and "0's" for the entry numbers.
+ * 
+ * @param {Number} id pokemons entry number.
+ */
 function zeroPadding(id) {
   if (id < 10) {
     return `#00${id}`
@@ -317,7 +431,9 @@ function zeroPadding(id) {
   }
 }
 
-//search tool
+/**
+ * Function for the search feature that parses the ul element from the text field and hides all other that don't contain those characters.
+ */
 function searchJS() {
   let input = document.getElementById('search-term')
   let filter = input.value.toUpperCase()
@@ -335,7 +451,12 @@ function searchJS() {
   }
 }
 
-//processes evolution chain
+/**
+ * Recursive function for populating a temporary array of the pokemons evolution chain.
+ * 
+ * @param {Array} evolves_to an array of Objects
+ * @param {Array} evolutions_list array holding the chosen pokemons sprite data.
+ */
 function processChain(evolves_to, evolutions_list) {
   evolves_to.forEach(chain => {
     evolutions_list.push({
