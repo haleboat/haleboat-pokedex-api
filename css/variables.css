@@ -1,0 +1,50 @@
+:root {
+  --light: #C4CFA1;
+  --medium: #8B956D;
+  --darker: #1F1F1F;
+
+  --normal: #ADA594;
+  --fire: #F75231;
+  --water: #399CFF;
+  --electric: #FFC631;
+  --grass: #7BCE52;
+  --ice: #5ACEE7;
+  --fighting: #A55239;
+  --poison: #B55AA5;
+  --ground: #D6B55A;
+  --flying: #9CADF7;
+  --psychic: #FF74A6;
+  --bug: #ADBD21;
+  --rock: #BDA55A;
+  --ghost: #6363B5;
+  --dragon: #7B63E7;
+  --steel: #ADADC6;
+  --dark: #735A4A;
+  --fairy: #F7B5F7; 
+ 
+  scrollbar-color: var(--darker) var(--medium);
+}
+
+
+
+::placeholder {
+  color: var(--darker);
+  font-size: .6rem; 
+}
+
+::-webkit-scrollbar {
+  background: var(--medium);
+  border-radius: 10px;
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--medium);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--darker);
+  border-radius: 10px;
+  width: 5px;
+}

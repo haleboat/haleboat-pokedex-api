@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>haleboat's Pokedex</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body onload="build()">
+
+  <div class="container">
+  </div>
+
+  <div class="toggle hide">
+    <div class="pokemon-card">
+      <button class='back' onclick=hideCard()>close</button>
+      <div class="wrapper top">
+        <div class="image"></div>
+        <div class="info">
+          <div>
+            <p class='info-title'>entry number:</p>
+            <p class='info-data' id="poke-num"></p>
+          </div>
+          <div>
+            <p class='info-title'>name:</p>
+            <p class='info-data' id='poke-name'></p>
+          </div>
+          <div>
+            <p class='info-title'>type:</p>
+            <span class='info-data type-container' id='poke-types'>
+              <p class='poketype' id='poke-type'></p>
+              <p class='poketype' id='poke-type2'></p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper mid">
+        <div class="evolutions">evolutions</div>
+        <div class="evo-container"></div>
+      </div>
+      <div class="wrapper bot">
+        <div class="description">
+          <p class='info-title'>description:</p>
+          <p class='description-data' id='poke-desc'></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="./app.js"></script>
+
+</html>

@@ -1,0 +1,109 @@
+@import "./variables.css";
+
+.normal{
+  border: 2px solid var(--normal, 0.75);
+  border-radius: 3px;
+  background-color: var(--normal);
+}
+
+.fire{
+  border: 2px solid var(--fire, 0.75);
+  border-radius: 3px;
+  background-color: var(--fire);
+}
+
+.water{
+  border: 2px solid var(--water, 0.75);
+  border-radius: 3px;
+  background-color: var(--water);
+}
+
+.electric{
+  border: 2px solid var(--electric, 0.75);
+  border-radius: 3px;
+  background-color: var(--electric);
+}
+
+.grass{
+  border: 2px solid var(--grass, 0.75);
+  border-radius: 3px;
+  background-color: var(--grass);
+}
+
+.ice{
+  border: 2px solid var(--ice, 0.75);
+  border-radius: 3px;
+  background-color: var(--ice);
+}
+
+.fighting{
+  border: 2px solid var(--fighting, 0.75);
+  border-radius: 3px;
+  background-color: var(--fighting);
+}
+
+.poison{
+  border: 2px solid var(--poison, 0.75);
+  border-radius: 3px;
+  background-color: var(--poison);
+}
+
+.ground{
+  border: 2px solid var(--ground, 0.75);
+  border-radius: 3px;
+  background-color: var(--ground);
+}
+
+.flying{
+  border: 2px solid var(--flying, 0.75);
+  border-radius: 3px;
+  background-color: var(--flying);
+}
+
+.psychic{
+  border: 2px solid var(--psychic, 0.75);
+  border-radius: 3px;
+  background-color: var(--psychic);
+}
+
+.bug{
+  border: 2px solid var(--bug, 0.75);
+  border-radius: 3px;
+  background-color: var(--bug);
+}
+
+.rock{
+  border: 2px solid var(--rock, 0.75);
+  border-radius: 3px;
+  background-color: var(--rock);
+}
+
+.ghost{
+  border: 2px solid var(--ghost, 0.75);
+  border-radius: 3px;
+  background-color: var(--ghost);
+}
+
+.dragon{
+  border: 2px solid var(--dragon, 0.75);
+  border-radius: 3px;
+  background-color: var(--dragon);
+}
+
+.steel{
+  border: 2px solid var(--steel, 0.75);
+  border-radius: 3px;
+  background-color: var(--steel);
+}
+
+.dark{
+  border: 2px solid var(--dark, 0.75);
+  border-radius: 3px;
+  background-color: var(--dark);
+}
+
+.fairy{
+  border: 2px solid var(--fairy, 0.75);
+  border-radius: 3px;
+  background-color: var(--fairy);
+}

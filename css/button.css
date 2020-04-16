@@ -1,0 +1,129 @@
+@import "./variables.css";
+
+.search {
+  padding: 0 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.search > * {
+  padding: 10px;
+}
+
+input[type=text] {
+  border: none;
+  border-radius: 5px;
+  font-family: 'Press Start 2P', cursive;
+  width: 100vw;
+  margin: 10px;
+  background-color: var(--medium);
+  color: var(--darker);
+}
+
+
+button {
+  align-self: center;
+  width: 100px;
+  padding: 10px 15px;
+  margin: 5px;
+  border: 3px solid var(--darker);
+
+  background-color: var(--medium);
+  color: var(--darker);
+  border-radius: 30px;
+
+  font-family: 'Press Start 2P', cursive;
+}
+
+button:hover {
+  background: var(--darker);
+  color: var(--light);
+  cursor: pointer;
+}
+
+button:active {
+  color: var(--darker);
+  background: var(--light);
+}
+
+button:focus {
+  outline:0;
+}
+
+.error {
+  position: absolute;
+  top: 10vh;
+}
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, 0.75);
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-pokemon {
+  margin-top: -50%;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, 0.75);
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle {
+  z-index: 1;
+  position: fixed;
+  animation-name: card-animation;
+  animation-duration: .5s;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow-y: auto;
+
+  padding-top: 70px;
+  height: 100%;
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.show {
+  display: block;
+  visibility: visible;
+}
+
+.shader {
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0,0,0, 0.75);
+}
+
+@keyframes card-animation {
+  from {top: -50%}
+  to {top: 50%}
+}
+
+@media only screen and (max-width: 780px) {
+  button {
+    font-size: .6rem; 
+  }
+
+  .loading {
+    width: 100vw;
+    height: 100vh;
+  }
+}

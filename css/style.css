@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+@import "./variables.css";
+
+body {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--light);
+  background-image: url('http://api.thumbr.it/whitenoise-361x370.png?background=C4CFA1ff&noise=626262&density=7&opacity=15');
+  
+  font-family: 'Press Start 2P', cursive; 
+}
