@@ -2,7 +2,7 @@
 
 This is a project built around the open-source [Pokedex-API](https://pokeapi.co/).
 
-Entirely built with HTML/CSS/JS.
+Entirely front-end, built with HTML/CSS/JS.
 
 [Live Site](https://haleboat-pokedex-api.netlify.app/)
 
@@ -11,13 +11,16 @@ I am a student in the Web Development program at SAIT in Calgary, AB.
 
 This was initially an assignment that I've been working on after the fact. The reason why is to further enhance my knowledge and try new things.
 
+The javascript is commented and documented throughout so feel free to take a look. It still needs alot of clean up and something I'm actively working on.
+
 Some ideas I've had so far are:
 - Add more funcionality to the website through filter options.
-- Have cards display more information on the program.
+- Have cards display more information on the pokemon.
 - Update the theme away from the green-scale 'gameboy' feel.
 - Convert CSS to Sass.
 - Add more accessibility.
 - Make site more responsive.
+- Component based/structured javascript.
 
 Some ideas that I pursued and didn't follow through:
 - Build with nodeJS
@@ -26,3 +29,7 @@ Some ideas that I pursued and didn't follow through:
   - mongoDB
     - Populating a mongoDB collection with the data from API as there is alot of fluff in the API that I initially didn't care about.
     - Rebuilding an already accesible 'collection' of sorts through the already provided API is kind of like re-inventing the wheel and redundant.
+- Build with React
+  - Though I havn't dipped my toes into React yet, it is something I'd really like to learn.
+- Build with Vue
+  - Again, same with React.
