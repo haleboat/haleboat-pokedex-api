@@ -21,6 +21,7 @@
   height: 800px;
   overflow-y: auto;
   
+  /* font-size: .75rem; */
   border: 2px dotted var(--darker);
   border-radius: 5px;
 
@@ -30,12 +31,12 @@
 
 .container #pokemon-list li {
   padding: 15px 30px;
-
+  
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  justify-content: space-between;
-
+  justify-content: space-between;  
+  
   color: var(--darker);
   text-transform: capitalize;
   border-bottom: 1px dotted var(--darker);
