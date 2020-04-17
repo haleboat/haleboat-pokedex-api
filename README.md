@@ -13,6 +13,12 @@ This was initially an assignment that I've been working on after the fact. The r
 
 The javascript is commented and documented throughout so feel free to take a look. It still needs alot of clean up and is something I'm actively working on.
 
+### Updates from the original assignment
+- Updating theme
+- Search feature
+- Adding evolution chain to the view card
+- Making mobile friendly/responsive
+
 ### Some ideas I've had so far are:
 - Add more funcionality to the website through filter options
 - Have cards display more information on the pokemon
