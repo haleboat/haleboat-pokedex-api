@@ -271,6 +271,8 @@ function getEvolutions(evolutionData) {
     name: evolutionData.species.name,
     spritesURL: `https://pokeapi.co/api/v2/pokemon/${evolutionData.species.name}/`
   })
+  evolutions_list = processChain(evolutionData.evolves_to, evolutions_list);
+
   if (evolutions_list.length > 1) {
     document.querySelector('.mid').style.display = 'block'
     evolutions_list.forEach(index => {

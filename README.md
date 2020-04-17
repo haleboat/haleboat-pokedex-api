@@ -9,9 +9,9 @@ Entirely front-end, built with HTML/CSS/JS.
 # Introduction
 I am a student in the Web Development program at SAIT in Calgary, AB.
 
-This was initially an assignment that I've been working on after the fact. The reason why is to further enhance my knowledge and try new things.
+This was initially an assignment that I've been working on after the fact. The reason why, is to further enhance my knowledge and try new things.
 
-The javascript is commented and documented throughout so feel free to take a look. It still needs alot of clean up and something I'm actively working on.
+The javascript is commented and documented throughout so feel free to take a look. It still needs alot of clean up and is something I'm actively working on.
 
 ### Some ideas I've had so far are:
 - Add more funcionality to the website through filter options
